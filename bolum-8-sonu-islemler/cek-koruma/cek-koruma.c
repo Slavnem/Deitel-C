@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
 
 // Ön işlemci tanımları
 #define SIZE 9
@@ -17,7 +16,6 @@
 #define MIN_CEK 1.00 // en düşük çek miktarı
 
 #define ASCII_COMMA 44 // ASCII standartına göre virgül
-#define ASCII_DOT 46 // ASCII standartına göre nokta
 #define ASCII_NUM_START 48 // ASCI standartına göre rakam başlangıcı
 
 // main
