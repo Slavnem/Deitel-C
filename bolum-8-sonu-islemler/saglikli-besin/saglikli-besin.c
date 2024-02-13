@@ -62,16 +62,6 @@ const int listdeger[] =
     1, 1
 };
 
-/*
-    MANTIK: her turda işlem yapacak ama
-    yıldız olan yerler dizi listesinde numara verilmiş
-    olan değer ile çarpılacak
-    örnek: soru işareti 2 olmalı ama yıldız 4 olmalı ise
-    çünkü kullanıcı 2 girdi, yıldız değeri soru işareti konulması
-    gereken değer ile çarpılacak
-    yani, 2 * 2 = 4, ya da 2 * 7 = 14 gibi gibi
-*/
-
 // main
 int main(void)
 {
