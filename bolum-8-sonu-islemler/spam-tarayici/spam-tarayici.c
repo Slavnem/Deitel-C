@@ -116,7 +116,7 @@ void kucult(char* sptr)
     // bitmedikçe devam etsin
     while(sptr != NULL && *sptr != '\0')
     {
-        tolower(*sptr); // harfi küçültme
+        *sptr = tolower(*sptr); // harfi küçültme
         ++sptr; // sonraki konuma geçmek
     }
 }
