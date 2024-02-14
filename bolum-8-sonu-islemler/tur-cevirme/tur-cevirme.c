@@ -81,22 +81,15 @@ int main(void)
 }
 
 // kucult
-void kucult(char* metinPtr)
+void kucult(char* strptr)
 {
-    // metinin adresini tutmak
-    char* gecici = metinPtr;
-
     // metin devam ediyorsa dönsün
-    while(gecici != NULL && *gecici != '\0')
+    while(strptr != NULL && *strptr != '\0')
     {
-        // harfi küçültmek
-        tolower(*gecici);
-
-        // sonraki adrese geçmek
-        ++gecici;
+        *strptr = tolower(*strptr); // harfi küçültmek
+        ++strptr; // sonraki adrese geçmek
     }
 }
-
 
 // cevirici
 char* cevirici(const char* const soruPtr, const size_t size_soruPtr)
@@ -237,6 +230,9 @@ char* cevirici(const char* const soruPtr, const size_t size_soruPtr)
 
     // kopya metini ayarlama
     sprintf(kopya, "%lf %s", sayi, turler[idtur][iddonusturme]);
+
+    // kopya metinin adresini atama
+    kopyaPtr = kopya;
 
     // cevabı bulunan metinin adresini döndürme
     return kopyaPtr;
