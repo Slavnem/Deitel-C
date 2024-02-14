@@ -232,7 +232,7 @@ void kucult(char* sptr)
     // boş ya bitmeyene kadar dönsün
     while(sptr != NULL && *sptr != '\0')
     {
-        tolower(*sptr); // harfi küçült
+        *sptr = tolower(*sptr); // harfi küçült
         ++sptr; // sonraki adrese geç
     }
 }
