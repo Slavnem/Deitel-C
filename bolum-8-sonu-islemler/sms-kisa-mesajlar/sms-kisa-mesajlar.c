@@ -10,9 +10,6 @@
 #define FALSE 0
 #define TRUE 1
 
-#define MSG_SHORT 0 // kısa mesajları belirleyen tür
-#define MSG_LONG 1 // uzun mesajları belirleyen tür
-
 #define MIN_LEN_STR 2 // en kısa metin uzunluğu
 #define MAX_LEN_STR 160 // en uzun metin uzunluğu
 
@@ -36,8 +33,8 @@ const unsigned short __size_normal = (sizeof(__normalPtr) / sizeof(__normalPtr[0
 
 enum EDONUSTURUCULER
 {
-    EKISA, // kısa metine dönüştürücü
-    EUZUN // uzun metine dönüştürücü
+    EMSG_KISA, // kısa metine dönüştürücü
+    EMSG_UZUN // uzun metine dönüştürücü
 };
 
 // main
@@ -65,8 +62,8 @@ int main(void)
     printf("%s%s\n", "Girilen Metin: ", strtext);
 
     // mesaj dönüşümlerini çıktı vermek
-    MesajDonusturucu(MSG_LONG, strtext); // uzun mesaj
-    MesajDonusturucu(MSG_SHORT, strtext); // kısa mesaj
+    MesajDonusturucu(EMSG_KISA, strtext); // uzun mesaj
+    MesajDonusturucu(EMSG_UZUN, strtext); // kısa mesaj
 }
 
 // MesajDonusturucu
@@ -86,8 +83,8 @@ void MesajDonusturucu(const unsigned short type_msg, const char* const strptr)
     // TÜR GEÇERLİLİK KONTROLÜ
     switch(type_msg)
     {
-        case MSG_SHORT: // kısa mesaja çevirme
-        case MSG_LONG: // uzun mesaja çevirme
+        case EMSG_KISA: // kısa mesaja çevirme
+        case EMSG_UZUN: // uzun mesaja çevirme
             // olması gerekenden az karakter içeriyorsa
             if(strlen(strptr) < MIN_LEN_STR)
                 return;
