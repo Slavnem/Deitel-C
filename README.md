@@ -1,4 +1,4 @@
-# C İle Programlama [C]
+# C İle Programlama (Programming With C)
 ## Paul Deitel - Harvey Deitel
 C ile programlamayı Deitel kitabını okuyarak
 adım adım ve temelden öğrenmeye çalışıyorum
@@ -11,14 +11,14 @@ kodlayıp yayınlıyorum. Olabildiğince net
 anlaşılması için yorum satırlarında detaylıca
 açıklamaya çalışıyorum.
 
-## İşletim Sistemi [OS]
-### [Linux/GNU] [Debian] - [GCC]
+## İşletim Sistemi (OS)
+### Linux/GNU (Debian) - GCC
 GCC ile hata ve uyarı olmayacak şekilde derleyip
 paylaşıyorum. Hata veya uyarıya neden olacak
 durumları farkettiğimde düzeltip tekrar yayınlıyorum.
 Linux/GNU da Gnome masaüstü arayüzü kullanıp
 bash terminali ile derliyorum.
 
-## Derleme [Compile]
+## Derleme (Compile)
 `gcc main.c -o compiled/main`
 `./compiled/main`
