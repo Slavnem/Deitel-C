@@ -13,7 +13,7 @@ int main(void)
     printf("Test \\ cikis akisi 4\\\n");
     printf("Test \a cikis akisi 5\a\n"); // \a
     printf("Test \b cikis akisi 6\b\n"); // \b
-    printf("Test \n cikis akisi 8\n\n"); // \n
-    printf("Test \r cikis akisi 7\r\n"); // \r
+    printf("Test \n cikis akisi 7\n\n"); // \n
+    printf("Test \r cikis akisi 8\r\n"); // \r
     printf("Test \t cikis akisi 9\t\n"); // \t
 }
