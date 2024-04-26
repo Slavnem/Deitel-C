@@ -12,8 +12,6 @@ typedef union
     long double x;
 } floatingPoint;
 
-// İsimlendirme
-
 // main
 int main(void)
 {
