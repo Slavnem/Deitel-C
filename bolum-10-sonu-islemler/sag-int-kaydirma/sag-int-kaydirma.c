@@ -4,47 +4,50 @@
 // Kütüphaneler
 #include <stdio.h>
 
+// Yapı tanımı
+typedef struct
+{
+    unsigned int n : 4; // 4 bit 0-15
+    unsigned int: 28; // bellek veri hizalama
+} Type;
+
 // Fonksiyon Tanım
 void printBit(unsigned int);
 
 // main
 int main(void)
 {
-    unsigned int number; // sayı
+    Type NumType; // sayı
     unsigned int bitshift; // bit kaydırma miktarı
 
-    // kullanıcıdan tamsayı değeri almak
-    do
-    {
-        printf("Enter a number between 1 to 99999: ");
-        scanf("%d", &number);
-    } while(number < 1 || number > 99999);
+    // 4 bitlik sayı verme
+    NumType.n = 13;
 
     // kullanıcıdan bit kaydırma miktarını istemek
     do
     {
         printf("Enter a bit shift number: ");
         scanf("%d", &bitshift);
-    } while(bitshift < 1 || bitshift >= (__CHAR_BIT__ * sizeof(number)));
+    } while(bitshift < 1 || bitshift > 4);
 
     // normal çıktı ve bit kaydırılmış çıktısı
     puts("Normal Output:");
-    printBit(number);
+    printBit(NumType.n);
 
     puts("\nBit Shift Operation Output:");
-    printBit(number >> bitshift);
+    printBit(NumType.n >> bitshift);
 }
 
 // printBit
 void printBit(unsigned int value)
 {
     size_t i; // sayaç
-    unsigned int mask = 1 << (__CHAR_BIT__ * sizeof(value)) - 1; // bit miktarı 
+    unsigned int mask = 1 << 3; // bit miktarı 
 
     // değeri çıktı vermek
     printf("%5d = ", value);
 
-    for(i = 1; i <= __CHAR_BIT__ * sizeof(value); ++i)
+    for(i = 1; i <= 4; ++i)
     {
         putchar(value & mask ? '1' : '0'); // bit çıktısı
         value <<= 1; // 1 bit sola kaydırmak
