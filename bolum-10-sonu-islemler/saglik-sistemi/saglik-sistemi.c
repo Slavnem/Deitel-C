@@ -7,6 +7,8 @@
 #include <string.h>
 
 // Ön İşlemci Tanımlamaları
+#define UINT_MAX_BIT (__CHAR_BIT__ * sizeof(unsigned int))
+
 #define GENDER_FEMALE 0
 #define GENDER_MALE 1
 
@@ -24,7 +26,7 @@ typedef struct
     char dogumtarihi[11]; // ??/??/????
     unsigned int boy: 8; // cm
     float kilo; // kg
-    unsigned int: ((__CHAR_BIT__ * sizeof(unsigned int)) - 9); // bellek hizalama
+    unsigned int: (UINT_MAX_BIT - 9); // bellek hizalama
 } SaglikProfili;
 
 typedef struct
@@ -38,9 +40,9 @@ typedef struct
         // 32 bit de 2 baytdan fazla yer kapladığı için
         // 4 bayt üzerinden değerlendirme yaptırıyoruz
         // bu yüzden 2 ile çarpıyoruz öyle çıkarıyoruz
-        (__CHAR_BIT__ * sizeof(unsigned int)) - (5+4+11+8) >= 0 ?
-            ((__CHAR_BIT__ * sizeof(unsigned int)) - (5+4+11+8)):
-            ((__CHAR_BIT__ * (sizeof(unsigned int) * 2)) - (5+4+11+8))
+        (UINT_MAX_BIT - (5+4+11+8)) >= 0 ?
+            (UINT_MAX_BIT - (5+4+11+8)):
+            ((UINT_MAX_BIT* 2) - (5+4+11+8))
     ); // bellek hizalama
 } Tarih;
 
