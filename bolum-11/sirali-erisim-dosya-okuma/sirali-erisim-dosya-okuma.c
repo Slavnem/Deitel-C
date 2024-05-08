@@ -28,7 +28,7 @@ int main(void)
 
     // dosyadan hesab, isim, bakiye okur
     printf("%-10s%-13s%-15s\n", "Hesap", "Isim", "Bakiye");
-    fscanf(cfPtr, "%d%29s%lf", &bankaHesap.hesap, &bankaHesap.ad, &bankaHesap.balance);
+    fscanf(cfPtr, "%d%29s%lf", &bankaHesap.hesap, bankaHesap.ad, &bankaHesap.balance);
 
     // dosyanın sonunda değilken
     while(!feof(cfPtr))
@@ -38,7 +38,7 @@ int main(void)
         // sıradaki veriyi alıyoruz, dosya sonu değilse eğer
         // bu döngü devam eder dosya sonu gelene kadar
         printf("%-10d%-13s%7.2f\n", bankaHesap.hesap, bankaHesap.ad, bankaHesap.balance);
-        fscanf(cfPtr, "%d%29s%lf", &bankaHesap.hesap, &bankaHesap.ad, &bankaHesap.balance);
+        fscanf(cfPtr, "%d%29s%lf", &bankaHesap.hesap, bankaHesap.ad, &bankaHesap.balance);
     }
 
     fclose(cfPtr); // dosya kapatma
