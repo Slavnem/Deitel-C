@@ -24,12 +24,12 @@ void displayBits(unsigned int value)
     unsigned int c; // sayaç
 
     // displayMask'ı tanımlama ve 31 biti sola kaydırma
-    unsigned int displayMask = 1 << 31;
+    unsigned int displayMask = 1 << __CHAR_BIT__ * sizeof(unsigned int) - 1;
 
     printf("%5u = ", value);
 
     // bitler üzerinden döngü
-    for(c = 1; c <= 32; c++)
+    for(c = 1; c <= (__CHAR_BIT__ * sizeof(unsigned int)); c++)
     {
         putchar(value & displayMask ? '1' : '0');
         value <<= 1; // 1 ile değeri sola kaydırma
