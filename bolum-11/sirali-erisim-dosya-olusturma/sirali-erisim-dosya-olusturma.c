@@ -30,14 +30,14 @@ int main(void)
     puts("Giris islemini sonlandirmak icin EOF giriniz.");
 
     printf("%s", "? ");
-    scanf("%d%29s%lf", &bankaHesap.hesap, &bankaHesap.ad, &bankaHesap.balance);
+    scanf("%d%29s%lf", &bankaHesap.hesap, bankaHesap.ad, &bankaHesap.balance);
 
     // fprintf ile dosya içine hesap, isim ve bakiye değerini yazmak
     while(!feof(stdin))
     {
         fprintf(cfPtr, "%d %s %.2f\n", bankaHesap.hesap, bankaHesap.ad, bankaHesap.balance);
         printf("%s", "? ");
-        scanf("%d%29s%lf", &bankaHesap.hesap, &bankaHesap.ad, &bankaHesap.balance);
+        scanf("%d%29s%lf", &bankaHesap.hesap, bankaHesap.ad, &bankaHesap.balance);
     }
 
     fclose(cfPtr); // fclose dosyayı kapatır
