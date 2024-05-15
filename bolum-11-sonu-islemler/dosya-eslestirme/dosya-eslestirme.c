@@ -140,7 +140,8 @@ int main(void)
                 {
                     if(arrAccount[testCounter].accNum == tempShopping.accNum)
                     {
-                        matched = true;
+                        matched = true; // eşleşti
+                        arrAccount[testCounter].balance += tempShopping.money; // ana bakiyeye ekle
                         break;
                     }
                 }
@@ -185,8 +186,6 @@ int main(void)
                     {
                         // paraya ekleme yap ve eşleşme olduğunu bildir
                         matched = true;
-                        arrAccount[testCounter].balance += tempShopping.money;
-                        break;
                     }
                 }
 
