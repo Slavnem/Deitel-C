@@ -13,6 +13,7 @@ typedef long int l4int;
 typedef unsigned long int ul4int;
 typedef long double l16double;
 typedef const char* const string; // sabit metin
+typedef char* vstring; // değiştirilebilir metin
 typedef const unsigned int const cu4int; // değiştirilemeyen tamsayı
 
 // isimlerini dizi de tutmak
@@ -68,7 +69,7 @@ typedef struct FileStore
 {
     FILE* fileAddr;
     string fileName;
-    char* fileOpen;
+    vstring fileOpen;
     Job fileJob;
     abool fileStatus;
     abool(*open)(struct FileStore* argFileStore);
@@ -186,7 +187,7 @@ abool process(FileStore* argFileStore)
             fseek(argFileStore->fileAddr, 0, SEEK_SET);
 
             // başlık ekleme
-            fprintf(argFileStore->fileAddr, "%-35s %+5s\n", "Veritipleri", "Boyut");
+            fprintf(argFileStore->fileAddr, "%-35s %5s\n", "Veritipleri", "Boyut");
 
             // döngü ile değişken isimlerini ve boyutlarını yazdırma
             for(int counter = 0; counter < __sizeNamesPtr && counter < __sizeVariablesPtr; counter++)
@@ -215,7 +216,7 @@ abool process(FileStore* argFileStore)
             // döngü ile dosyanın kalanını çıktı verme
             while(!feof(argFileStore->fileAddr))
             {
-                printf(buffer); // okunan bilgiyi çıktı vermek
+                printf("%s", buffer); // okunan bilgiyi çıktı vermek
                 fgets(buffer, 50, argFileStore->fileAddr); // bilgiyi dosyadan okumak
             }
 
