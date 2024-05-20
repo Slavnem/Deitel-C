@@ -72,16 +72,16 @@ typedef struct FileStore
     vstring fileOpen;
     Job fileJob;
     abool fileStatus;
-    abool(*open)(struct FileStore* argFileStore);
-    abool(*close)(FILE* argFileAddr);
-    abool(*status)(const FILE* const argFileAddr);
+    abool(*open)(struct FileStore** argFileStore);
+    abool(*close)(FILE** argFileAddr);
+    abool(*status)(const FILE** const argFileAddr);
     abool(*process)(struct FileStore* argFileStore);
 } FileStore;
 
 // Fonksiyon tanımlamaları
-abool open(struct FileStore* argFileStore);
-abool close(FILE* argFileAddr);
-abool status(const FILE* const argFileAddr);
+abool open(struct FileStore** argFileStore);
+abool close(FILE** argFileAddr);
+abool status(const FILE** const argFileAddr);
 abool process(FileStore* argFileStore);
 
 // main
@@ -92,7 +92,7 @@ int main(void)
     {
         NULL, // boş dosya
         "datasize.dat",
-        "w", // başlangıçta dosyayı açacak
+        NULL, // başlangıçta dosya açma türü boş
         WRITE_VARTYPES_TO_FILE, // dosyaya yapılacak işlem türü
         afalse, // dosya yok bu yüzden kapalı
         open, // dosya açma fonksiyonu
@@ -118,10 +118,6 @@ int main(void)
             break;
     }
 
-    // dosyaya veri yazma başarılı oldu
-    // şimdi veri okuyacağız
-    fileStorage.fileOpen = "r";
-
     // dosyadan değişken türleri okunacak
     fileStorage.fileJob = READ_VARTYPES_FROM_FILE;
 
@@ -146,36 +142,77 @@ int main(void)
 }
 
 // open file
-abool open(FileStore* argFileStorage)
+abool open(FileStore** argFileStorage)
 {
-    // dosyayı açmaya çalışsın ve boş değilse doğru, değilse hata
-    return ((argFileStorage->fileAddr = fopen(argFileStorage->fileName, argFileStorage->fileOpen)) != NULL) ?
-        atrue : afalse;
+    // dosya boş değilse, hata versin
+    if((*argFileStorage)->fileAddr != NULL)
+    {
+        (*argFileStorage)->fileStatus = afail;
+        return (*argFileStorage)->fileStatus;
+    }
+
+    // dosyayı açmaya çalışsın
+    (*argFileStorage)->fileAddr = fopen((*argFileStorage)->fileName, (*argFileStorage)->fileOpen);
+
+    // dosya boş değilse kontrol
+    (*argFileStorage)->fileStatus = ((*argFileStorage)->fileAddr != NULL) ? atrue : afalse;
+
+    // dosya boş değilse doğru, değilse hata
+    return ((*argFileStorage)->fileStatus);
 }
 
 // close file
-abool close(FILE* argFileAddr)
+abool close(FILE** argFileAddr)
 {
-    // dosya kapanmışsa doğru, değilse hata
-    return (fclose(argFileAddr) == 0 ? atrue : afalse);
+    // dosya boş değilse kapatsın
+    if((*argFileAddr) != NULL)
+    {
+        fclose((*argFileAddr)); // dosyayı kapat
+        (*argFileAddr) = NULL; // hiçbir dosyaya ulaşmadığını belirt
+    }
+
+    return ((*argFileAddr) == NULL ? atrue : afalse); // dosya zaten boş
 }
 
 // status file
-abool status(const FILE* const argFileAddr)
+abool status(const FILE** const argFileAddr)
 {
     // dosya boş değilse aktif, değilse pasif
-    return (argFileAddr != NULL ? atrue : afalse);
+    return ((*argFileAddr) != NULL ? atrue : afalse);
 }
 
 // process file
 abool process(FileStore* argFileStore)
 {
-    // dosyaya veri yazmak için açıyoruz
-    if(argFileStore->open(argFileStore) != atrue)
+    // açık dosya varsa kapatma
+    if((argFileStore->fileStatus = argFileStore->close(&argFileStore->fileAddr)) != atrue)
     {
-        // dosya açılamadı
-        printf("\n* \"%s\" Dosya Acilamadi *\n", (argFileStore->fileName));
-        return afail;
+        // dosya durumunu hataya ayarla, çıktı ver ve durumunu döndür
+        argFileStore->fileStatus = afail;
+        printf("\n* \"%s\" Dosya Basari Ile Kapatilamadi *\n\n", (argFileStore->fileName));
+        return argFileStore->fileStatus;
+    }
+
+    // dosya işlem türüne göre dosya açma şeklini belirlesin
+    switch(argFileStore->fileJob)
+    {
+        // dosyaya veri yazma
+        case WRITE_VARTYPES_TO_FILE:
+            argFileStore->fileOpen = "w";
+            break;
+        // dosyadan veri okuma
+        case READ_VARTYPES_FROM_FILE:
+            argFileStore->fileOpen = "r";
+            break;
+    }
+
+    // dosyayı açıyoruz
+    if((argFileStore->fileStatus = argFileStore->open(&argFileStore)) != atrue)
+    {
+        // dosya durumunu hataya ayarla, çıktı ver ve durumunu döndür
+        argFileStore->fileStatus = afail;
+        printf("\n* \"%s\" Dosya Basari Ile Acilamadi *\n\n", (argFileStore->fileName));
+        return argFileStore->fileStatus;
     }
 
     // dosya işlem türüne göre işlem
@@ -200,7 +237,7 @@ abool process(FileStore* argFileStore)
             }
 
             // yazma bitti, dosyayı kapat
-            argFileStore->fileStatus = argFileStore->close(argFileStore->fileAddr);
+            argFileStore->fileStatus = argFileStore->close(&argFileStore->fileAddr);
             return argFileStore->fileStatus;
         // dosyadan veri türlerini okuyup çıktı verme
         case READ_VARTYPES_FROM_FILE:
@@ -221,7 +258,7 @@ abool process(FileStore* argFileStore)
             }
 
             // okuma bitti, dosyayı kapat
-            argFileStore->fileStatus = argFileStore->close(argFileStore->fileAddr);
+            argFileStore->fileStatus = argFileStore->close(&argFileStore->fileAddr);
             return argFileStore->fileStatus;
     }
 
