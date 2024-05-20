@@ -169,10 +169,6 @@ abool status(const FILE* const argFileAddr)
 // process file
 abool process(FileStore* argFileStore)
 {
-    // dosya boş değilse kapatıyoruz
-    // if(argFileStore->status(argFileStore->fileAddr) == atrue)
-    //     argFileStore->close(argFileStore->fileAddr);
-
     // dosyaya veri yazmak için açıyoruz
     if(argFileStore->open(argFileStore) != atrue)
     {
