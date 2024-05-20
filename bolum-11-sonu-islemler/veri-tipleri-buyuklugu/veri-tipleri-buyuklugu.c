@@ -58,12 +58,6 @@ typedef char abool; // gelişmiş bool türü (advanced bool)
 #define afalse 0
 #define atrue 1
 
-typedef enum FileOpen
-{
-    FOPEN_READ, // okuma
-    FOPEN_WRITE // yazma
-} FileOpen;
-
 typedef enum Job
 {
     WRITE_VARTYPES_TO_FILE = 1, // değişken türlerini dosyaya yaz
