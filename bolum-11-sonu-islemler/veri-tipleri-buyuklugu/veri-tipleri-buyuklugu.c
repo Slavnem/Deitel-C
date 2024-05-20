@@ -13,7 +13,6 @@ typedef long int l4int;
 typedef unsigned long int ul4int;
 typedef long double l16double;
 typedef const char* const string; // sabit metin
-typedef char* vstring; // değiştirilebilir metin
 typedef const unsigned int const cu4int; // değiştirilemeyen tamsayı
 
 // isimlerini dizi de tutmak
