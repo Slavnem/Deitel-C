@@ -368,7 +368,7 @@ int calculateSimpletron(float* mem, const int* size_mem)
                 break;
             // DAL
             case BRANCH:
-                branch(&instructionCounter, &operand);
+                branch(&instructionCounter, &operand);	
                 break;
             // DAL NEGATIF
             case BRANCHNEG:
@@ -535,7 +535,7 @@ void halt(const float* memoryParamPtr, const int* memorysizeParamPtr, const int*
     printf("\nREGISTERS:\n");
     printf("accumulator: %+05.2f\n", *accumulatorParamPtr);
     printf("instructionCounter: %02d\n", *inscounterParamPtr);
-    printf("instructionRegister: %+05d\n", *inscounterParamPtr);
+    printf("instructionRegister: %+05d\n", insregister);
     printf("operationCode: %02d\n", operationCode);
     printf("operand: %02d\n", operand);
 
