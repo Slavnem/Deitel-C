@@ -11,7 +11,6 @@ typedef const char* const string; // sabit metin
 typedef char* vstring; // değiştirilebilir metin
 typedef unsigned int uint; // nötr, pozitif tam sayı
 typedef char abool; // gelişmiş bool (advanced bool)
-typedef char buffer[6]; // geçici metin depolama
 
 // Simpletron Sınırlandırma Tanımlamaları
 #define SIMPLETRON_MIN 0
