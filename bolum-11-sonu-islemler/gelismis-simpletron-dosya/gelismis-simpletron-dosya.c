@@ -13,9 +13,7 @@ typedef unsigned int uint; // nötr, pozitif tam sayı
 typedef char abool; // gelişmiş bool (advanced bool)
 
 // Simpletron Sınırlandırma Tanımlamaları
-#define SIMPLETRON_MIN 0
-#define SIMPLETRON_MAX 1000
-#define SIMPLETRON_KILL -1
+#define SIMPLETRON_MEMSIZE 1000
 
 // Geişmiş Doğrulama
 #define afail -1
@@ -24,7 +22,7 @@ typedef char abool; // gelişmiş bool (advanced bool)
 
 // Çıktı İçin Satır ve Sütun Sayısı
 #define OUTPUT_COLUMN 10
-#define OUTPUT_ROW (SIMPLETRON_MAX / OUTPUT_COLUMN)
+#define OUTPUT_ROW (SIMPLETRON_MEMSIZE / OUTPUT_COLUMN)
 
 // Dosya İşlem Komutları
 typedef enum FileJob
@@ -120,7 +118,7 @@ typedef struct Simpletron
     void(*halt)(struct Simpletron* argSimpletron, const uint argSizeSimpletron, const SimpletronMemory* argSimpletronMem, const uint argSizeSimpletronMem, const float* argAccumulator);
     SimpletronStatus simpletronStatus; // simpletron durumu
     SimpletronMemory simpletronMemory; // simpletron belleği yönetimi için
-    SimpletronMemCell simpletronMemCell[SIMPLETRON_MAX]; // simpletron bellek hücresi
+    SimpletronMemCell simpletronMemCell[SIMPLETRON_MEMSIZE]; // simpletron bellek hücresi
     const uint const sizeSimpletronMemCell; // simpletron bellek uzunluğu
 } Simpletron;
 
@@ -755,14 +753,13 @@ void halt(Simpletron* argSimpletron, const uint argSizeSimpletron, const Simplet
     // Bilgileri dosyaya yazmak
     ///////////////////////////
     fputs("\nREGISTERS\n", argSimpletron->fileStoragePtr->fileAddr);
-    fprintf(argSimpletron->fileStoragePtr->fileAddr, "Accumulator: %05.2f\n", *argAccumulator);
-    fprintf(argSimpletron->fileStoragePtr->fileAddr,
-        "Instruction Counter: %2d%04d\n",
+    fprintf(argSimpletron->fileStoragePtr->fileAddr, "Accumulator: %05.2f\n", (*argAccumulator));
+    fprintf(argSimpletron->fileStoragePtr->fileAddr, "Instruction Counter: %d\n", (argSizeSimpletronMem));
+
+    fprintf(argSimpletron->fileStoragePtr->fileAddr, "Instruction Register: %2d%04d\n",
         (argSimpletronMem + (argSizeSimpletronMem - 1))->code,
         (argSimpletronMem + (argSizeSimpletronMem - 1))->operand
     );
-
-    fprintf(argSimpletron->fileStoragePtr->fileAddr, "Instruction Register: %d\n", (argSizeSimpletronMem));
     fprintf(argSimpletron->fileStoragePtr->fileAddr, "Code: %02d\n", (argSimpletronMem + (argSizeSimpletronMem - 1))->code);
     fprintf(argSimpletron->fileStoragePtr->fileAddr, "Operand: %04d\n", (argSimpletronMem + (argSizeSimpletronMem - 1))->operand);
     fputs("\nMEMORY\n", argSimpletron->fileStoragePtr->fileAddr);
@@ -771,12 +768,12 @@ void halt(Simpletron* argSimpletron, const uint argSizeSimpletron, const Simplet
     // Kullanıcı için çıktı
     ///////////////////////////
     puts("\nREGISTERS");
-    printf("\nAccumulator: %05.2f\n", *argAccumulator);
-    printf("Instruction Counter: %2d%04d\n",
+    printf("\nAccumulator: %05.2f\n", (*argAccumulator));
+    printf("Instruction Counter: %d %2d%04d\n", (argSizeSimpletronMem));
+    printf("Instruction Register: %2d%04d\n", 
         (argSimpletronMem + (argSizeSimpletronMem - 1))->code,
         (argSimpletronMem + (argSizeSimpletronMem - 1))->operand
     );
-    printf("Instruction Register: %d\n", (argSizeSimpletronMem));
     printf("Code: %02d\n", (argSimpletronMem + (argSizeSimpletronMem - 1))->code);
     printf("Operand: %04d\n", (argSimpletronMem + (argSizeSimpletronMem - 1))->operand);
 
@@ -839,7 +836,4 @@ void halt(Simpletron* argSimpletron, const uint argSizeSimpletron, const Simplet
     argSimpletron->fileStoragePtr->close(
         &argSimpletron->fileStoragePtr
     );
-
-    // başarıyla bitti
-    return;
 }
