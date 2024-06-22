@@ -29,7 +29,7 @@ typedef TreeNode *TreeNodePtr;
 int isEmpty(void* ptr);
 int mallocation(TreeNodePtr *nodePtr);
 void insert(TreeNodePtr *nodePtr, uint data);
-int depth(TreeNodePtr *nodePtr, uint* depthPtr);
+void depth(TreeNodePtr *nodePtr, uint* depthPtr);
 
 // main
 int main(void)
@@ -120,7 +120,7 @@ void insert(TreeNodePtr *nodePtr, uint data)
 }
 
 // depth
-int depth(TreeNodePtr *nodePtr, uint* depthPtr)
+void depth(TreeNodePtr *nodePtr, uint* depthPtr)
 {
     if(!isEmpty(*nodePtr))
     {
