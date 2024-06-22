@@ -136,7 +136,7 @@ void* searchList(LinkedListPtr *nodePtr, int search)
 {
     // eğer düğüm boş değil ve değer eşleşti ise
     if(!isEmpty(*nodePtr) && (*nodePtr)->value == search)
-        return (LinkedListPtr)&(*nodePtr);
+        return (LinkedListPtr)(*nodePtr);
 
     // düğüm sonuna gelindiyse NULL, değilse aramaya devam etsin
     if(isEmpty(*nodePtr))
