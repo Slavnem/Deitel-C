@@ -95,7 +95,7 @@ static void reader_saver(fileptr *infile, fileptr *outfile)
         // karakter bitene kadar kendisini döndürsün
         reader_saver(&(*infile), &(*outfile));
         
-        // EOF haric karakteri dosyaya kaydetsin
-        fputc(tempc, (*outfile));
+        // EOF ve yeni satır \n karakteri hariç dosyaya kaydetsin
+        (tempc != '\n') ? fputc(tempc, (*outfile)) : 0;
     }
 }
