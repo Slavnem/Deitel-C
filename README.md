@@ -25,5 +25,5 @@ When i notice errors or warnings, i fix and i post them again.
 I compile with a Bash terminal.
 
 ## Derleme (Compile)
-`gcc main.c -o compiled/main`
+`gcc *.c -o compiled/main`
 `./compiled/main`
